@@ -133,7 +133,7 @@ awful.keyboard.append_global_keybindings({
 --]]
 
 
--- [[ config for client related buttons and keys
+-- [[ config for global client related buttons and keys
     awful.keyboard.append_global_keybindings({
     awful.key({ modkey,           }, "j",
         function ()
@@ -167,6 +167,34 @@ awful.keyboard.append_global_keybindings({
 })
 -- ]]
 
+-- [[ config client related keys and buttons
+    local client_buttons = {
+        awful.button(
+		{},
+		1,
+		function(c)
+			client.focus = c
+			c:raise()
+		end
+	    ),
+	    awful.button({modkey}, 1, awful.mouse.client.move),
+	    awful.button({modkey}, 3, awful.mouse.client.resize)
+    }
+
+
+    local client_keys = {
+        -- close client
+	    awful.key(
+	    	{modkey},
+	    	'q',
+	    	function(c)
+	    		c:kill()
+	    	end,
+	    	{description = 'close', group = 'client'}
+	    ),
+    }
+-- ]]
+
 -- [[ config keys for awesome
     awful.keyboard.append_global_keybindings({
         awful.key({modkey, 'Control'}, 
@@ -187,5 +215,7 @@ return {
     theme = "fly",   -- choose theme
     modkey = modkey,
     tags = tag,
-    tag_buttons = tag_buttons
+    tag_buttons = tag_buttons,
+    client_buttons = client_buttons,
+    client_keys = client_keys
 }

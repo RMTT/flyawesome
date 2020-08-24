@@ -1,12 +1,12 @@
 local common = {}
 
-function common.clickable(widget,bg)
+function common.clickable(widget,bg_normal,bg_enter)
     local cursor,wibox
 
     if widget.bg then
         widget:connect_signal("mouse::enter",function()
             if widget.bg then
-                widget.bg = bg .. "cc"
+                widget.bg = bg_enter
             end
     
             local w = mouse.current_wibox
@@ -18,7 +18,7 @@ function common.clickable(widget,bg)
 
         widget:connect_signal("mouse::leave",function()
             if widget.bg then
-                widget.bg = bg
+                widget.bg = bg_normal
             end
 
             if wibox then

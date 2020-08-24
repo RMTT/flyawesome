@@ -10,8 +10,9 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local awful = require("awful")
 
--- import widgets and layouts
+-- import widgets and layouts and rules
 local topbar = require("theme.fly.layout.topbar")
+local rule = require("theme.fly.module.rule")
 
 -- import configurations
 local icons = require("theme.assets.icons")
@@ -41,6 +42,9 @@ function fly:init(config)
         )
     end
 -- ]]
+
+    -- add client ruls
+    rule:init({client_buttons = config.client_buttons,client_keys = config.client_keys})
 
     self.geometry = {
         width = config.screen.geometry.width,
