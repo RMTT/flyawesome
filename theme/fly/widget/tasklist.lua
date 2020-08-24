@@ -58,6 +58,18 @@ function tasklist:init(config)
                 align = "center"
             },
             layout   = {
+				spacing_widget = {
+            		{
+                		forced_width  = 10232,
+                		forced_height = config.height * 0.7,
+                		thickness     = 1,
+               	 		color         = '#000000',
+                		widget        = wibox.widget.separator
+            		},
+            		valign = 'center',
+            		halign = 'center',
+            		widget = wibox.container.place,
+        		},
                 spacing = 2,
                 layout  = wibox.layout.fixed.horizontal
             },
@@ -69,13 +81,16 @@ function tasklist:init(config)
                     widget        = wibox.container.background,
                 },
                 {
-                    awful.widget.clienticon,
-                    widget  = wibox.container.margin
+					{
+                    	awful.widget.clienticon,
+						widget  = wibox.container.margin
+					},
+					widget = wibox.container.place
                 },
                 layout = wibox.layout.align.vertical
             }
         },
-        widget = wibox.container.place
+        widget = wibox.container.background
     }
 end
 
