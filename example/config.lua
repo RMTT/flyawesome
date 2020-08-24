@@ -3,8 +3,9 @@ local awful = require("awful")
 
 local config_dir = gears.filesystem.get_xdg_config_home() .. "flyawesome/"
 
--- [[ config modkey ]]
+-- [[ config modkey and some default apps ]]
     local modkey = "Mod4"
+    local terminal = "kitty"
 -- ]]
 
 -- [[ config tag 
@@ -81,6 +82,7 @@ awful.keyboard.append_global_keybindings({
                 local tag = client.focus.screen.tags[index]
                 if tag then
                     client.focus:move_to_tag(tag)
+                    tag:emit_signal("taglist::update_icon",tag)
                 end
             end
         end,
@@ -123,6 +125,62 @@ awful.keyboard.append_global_keybindings({
 
 -- ]]
 
+-- [[ config keys for launch some apps
+awful.keyboard.append_global_keybindings({
+    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+              {description = "open a terminal", group = "launcher"})
+})
+--]]
+
+
+-- [[ config for client related buttons and keys
+    awful.keyboard.append_global_keybindings({
+    awful.key({ modkey,           }, "j",
+        function ()
+            awful.client.focus.byidx( 1)
+        end,
+        {description = "focus next by index", group = "client"}
+    ),
+    awful.key({ modkey,           }, "k",
+        function ()
+            awful.client.focus.byidx(-1)
+        end,
+        {description = "focus previous by index", group = "client"}
+    ),
+    awful.key({ modkey,           }, "Tab",
+        function ()
+            awful.client.focus.history.previous()
+            if client.focus then
+                client.focus:raise()
+            end
+        end,
+        {description = "go back", group = "client"}),
+    awful.key({ modkey, "Control" }, "n",
+              function ()
+                  local c = awful.client.restore()
+                  -- Focus restored client
+                  if c then
+                    c:activate { raise = true, context = "key.unminimize" }
+                  end
+              end,
+              {description = "restore minimized", group = "client"}),
+})
+-- ]]
+
+-- [[ config keys for awesome
+    awful.keyboard.append_global_keybindings({
+        awful.key({modkey, 'Control'}, 
+		'r', 
+		awesome.restart, 
+		{description = 'reload awesome', group = 'awesome'}
+	),
+	awful.key({modkey, 'Control'}, 
+		'q', 
+		awesome.quit, 
+		{description = 'quit awesome', group = 'awesome'}
+	),
+    })
+-- ]]
 
 -- return to flyawesome
 return {

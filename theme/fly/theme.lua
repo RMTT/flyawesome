@@ -47,6 +47,7 @@ theme.topbar_bg = "#d8e3e7"
 -- Example:
 --theme.taglist_bg_focus = "#ff0000"
 
+theme.tasklist_bg_focus = theme.startup_bg
 -- Generate taglist squares:
 local taglist_square_size = dpi(4)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(

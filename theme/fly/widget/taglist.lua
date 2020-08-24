@@ -32,7 +32,7 @@ function taglist:init(config)
                 local icon = wibox.widget{
                     _id = "icon",
                     forced_height = config.height * 0.6,
-                    forced_width = config.width * 0.6,
+                    forced_width = config.height * 0.6,
                     widget = wibox.widget.imagebox
                 }
 
@@ -57,7 +57,7 @@ function taglist:init(config)
 
                 t:connect_signal("property::selected",update_icon)
 
-                awesome.connect_signal("wigdet::taglist::update_icon",update_icon)
+                t:connect_signal("taglist::update_icon",update_icon)
             end,
             widget = wibox.container.margin
         },
