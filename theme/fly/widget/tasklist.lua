@@ -60,7 +60,7 @@ function tasklist:init(config)
             layout   = {
 				spacing_widget = {
             		{
-                		forced_width  = 10232,
+                		forced_width  = 10,
                 		forced_height = config.height * 0.7,
                 		thickness     = 1,
                	 		color         = '#000000',

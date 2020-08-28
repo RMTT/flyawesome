@@ -34,6 +34,10 @@ theme.border_color_marked = "#91231c"
 theme.startup_bg = "#5698c3"
 theme.topbar_bg = "#d8e3e7"
 
+theme.prompt_fg_cursor = "#ffffff"
+
+theme.transparency = "#00000000"
+
 -- There are other variable sets
 -- overriding the default one when
 -- defined, the sets are:

@@ -17,6 +17,9 @@ local rule = require("theme.fly.module.rule")
 -- import configurations
 local icons = require("theme.assets.icons")
 
+-- import predefined signals
+local sig = require("theme.fly.signal")
+
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/fly/theme.lua")
 
 
@@ -59,6 +62,9 @@ function fly:init(config)
     }
 
     config.screen.topbar = topbar.widget
+
+    awesome.emit_signal(sig.topbar.geometry_calculated,topbar.widget:geometry())
+    
 end
 
 

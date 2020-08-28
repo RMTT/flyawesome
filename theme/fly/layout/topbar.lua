@@ -32,7 +32,7 @@ function topbar:init(config)
     }
 
     taglist:init({screen = config.screen,height = self.height,tag_buttons = config.tag_buttons})
-    startup:init({height = self.height * 0.9})
+    startup:init({height = self.height * 0.9, screen = config.screen})
     control_center:init({height = self.height * 0.9})
     tasklist:init({screen = config.screen,height = self.height})
     clock:init({bg = beautiful.topbar_bg})
