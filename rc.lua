@@ -34,7 +34,8 @@ local handle_theme = function(s)
         tags = res.tags,
         tag_buttons = res.tag_buttons,
         client_buttons = res.client_buttons,
-        client_keys = res.client_keys
+        client_keys = res.client_keys,
+        autostart = res.autostart
     }
 end
 

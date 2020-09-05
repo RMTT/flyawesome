@@ -20,6 +20,9 @@ local icons = require("theme.assets.icons")
 -- import predefined signals
 local sig = require("theme.fly.signal")
 
+-- import modules
+local autostart = require("theme.fly.module.autostart")
+
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/fly/theme.lua")
 
 
@@ -65,6 +68,7 @@ function fly:init(config)
 
     awesome.emit_signal(sig.topbar.geometry_calculated,topbar.widget:geometry())
     
+    autostart:init({apps = config.autostart})
 end
 
 

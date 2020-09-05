@@ -33,6 +33,8 @@ theme.border_color_marked = "#91231c"
 
 theme.startup_bg = "#5698c3"
 theme.topbar_bg = "#d8e3e7"
+theme.bg_systray = theme.topbar_bg
+theme.systray_icon_spacing = 5
 
 theme.prompt_fg_cursor = "#ffffff"
 

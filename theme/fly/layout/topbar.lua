@@ -12,6 +12,7 @@ local startup = require("theme.fly.widget.startup")
 local control_center = require("theme.fly.widget.control_center")
 local tasklist = require("theme.fly.widget.tasklist")
 local clock = require("theme.fly.widget.clock")
+local systray = require("theme.fly.widget.systray")
 
 -- import configurations
 local icons = require("theme.assets.icons")
@@ -36,6 +37,7 @@ function topbar:init(config)
     control_center:init({height = self.height * 0.9})
     tasklist:init({screen = config.screen,height = self.height})
     clock:init({bg = beautiful.topbar_bg})
+    systray:init({screen = config.screen})
 
     local topbar_bg_clickable = "#cdd1d3cc"
     common.clickable(startup.widget,beautiful.startup_bg,beautiful.startup_bg .. "cc")
@@ -54,6 +56,13 @@ function topbar:init(config)
                 tasklist.widget,
                 wibox.widget{
                     {
+                        wibox.widget{
+                            systray.widget,
+                            right = 10,
+                            top  = self.height / 10,
+                            bottom = self.height / 10,
+                            widget = wibox.container.margin
+                        },
                         clock.widget,
                         layout = wibox.layout.fixed.horizontal
                     },

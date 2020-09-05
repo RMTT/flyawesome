@@ -210,6 +210,13 @@ awful.keyboard.append_global_keybindings({
     })
 -- ]]
 
+-- [[ autostart apps 
+    local autostart = {
+        "picom",
+        "redshift"
+    }
+--]]
+
 -- return to flyawesome
 return {
     theme = "fly",   -- choose theme
@@ -217,5 +224,6 @@ return {
     tags = tag,
     tag_buttons = tag_buttons,
     client_buttons = client_buttons,
-    client_keys = client_keys
+    client_keys = client_keys,
+    autostart = autostart
 }
