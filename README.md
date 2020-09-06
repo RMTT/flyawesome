@@ -17,3 +17,7 @@ Just one new themes for awesomewm inspired adi1090x's polybar themes and manilar
 ### Update
 Just pull from this repo
 
+
+### Current preview
+![preview](https://i.imgur.com/vWQ6aV8.png)
+
