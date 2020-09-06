@@ -1,7 +1,7 @@
 -- predefined signals for theme
 
 return {
-    topbar = {
-        geometry_calculated = "topbar::geometry"
+    startup = {
+        show_panel = "startup::show_panel"
     }
 }

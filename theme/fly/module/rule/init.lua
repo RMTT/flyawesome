@@ -25,7 +25,7 @@ function rule:init(config)
 				sticky = false,
 				maximized_horizontal = false,
 				maximized_vertical = false,
-				round_corners = true,
+				round_corners = false,
 				keys = config.client_keys,
 				buttons = config.client_buttons,
 				screen    = awful.screen.preferred,

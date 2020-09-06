@@ -43,10 +43,25 @@ function fly:init(config)
                 name = t.name,
                 icon = gears.surface.load_uncached(t.icon),
                 icon_selected = gears.surface.load_uncached(t.icon_selected),
-                selected = selected
+                selected = selected,
+                gap_single_client = false,
+                gap = beautiful.useless_gap,
+                layout = t.layout
             }
         )
     end
+
+    tag.connect_signal(
+	'property::layout',
+	function(t)
+		local currentLayout = awful.tag.getproperty(t, 'layout')
+		if (currentLayout == awful.layout.suit.max) then
+			t.gap = 0
+		else
+			t.gap = beautiful.useless_gap
+		end
+	end
+)
 -- ]]
 
     -- add client ruls
@@ -65,8 +80,6 @@ function fly:init(config)
     }
 
     config.screen.topbar = topbar.widget
-
-    awesome.emit_signal(sig.topbar.geometry_calculated,topbar.widget:geometry())
     
     autostart:init({apps = config.autostart})
 end

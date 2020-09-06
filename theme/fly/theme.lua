@@ -12,6 +12,17 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
+theme.startup_bg = "#5698c3"
+theme.topbar_bg = "#d8e3e7"
+theme.bg_systray = theme.topbar_bg
+theme.systray_icon_spacing = 5
+theme.text_bg_normal = "#000000"
+theme.layoutbox_fg = "#7a7374"
+
+theme.prompt_fg_cursor = "#ffffff"
+
+theme.transparency = "#00000000"
+
 theme.font          = "sans 8"
 
 theme.bg_normal     = "#d8e3e7"
@@ -25,20 +36,13 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.useless_gap         = dpi(0)
+theme.useless_gap         = dpi(4)
 theme.border_width        = dpi(1)
 theme.border_color_normal = "#000000"
-theme.border_color_active = "#535d6c"
+theme.border_color_active = theme.startup_bg
 theme.border_color_marked = "#91231c"
 
-theme.startup_bg = "#5698c3"
-theme.topbar_bg = "#d8e3e7"
-theme.bg_systray = theme.topbar_bg
-theme.systray_icon_spacing = 5
 
-theme.prompt_fg_cursor = "#ffffff"
-
-theme.transparency = "#00000000"
 
 -- There are other variable sets
 -- overriding the default one when
@@ -146,6 +150,8 @@ rnotification.connect_signal('request::rules', function()
         properties = { bg = '#ff0000', fg = '#ffffff' }
     }
 end)
+
+theme = theme_assets.recolor_layout(theme, theme.layoutbox_fg)
 
 return theme
 

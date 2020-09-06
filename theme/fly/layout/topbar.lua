@@ -13,6 +13,7 @@ local control_center = require("theme.fly.widget.control_center")
 local tasklist = require("theme.fly.widget.tasklist")
 local clock = require("theme.fly.widget.clock")
 local systray = require("theme.fly.widget.systray")
+local layoutbox = require("theme.fly.widget.layoutbox")
 
 -- import configurations
 local icons = require("theme.assets.icons")
@@ -33,11 +34,12 @@ function topbar:init(config)
     }
 
     taglist:init({screen = config.screen,height = self.height,tag_buttons = config.tag_buttons})
-    startup:init({height = self.height * 0.9, screen = config.screen})
-    control_center:init({height = self.height * 0.9})
+    startup:init({height = self.height, screen = config.screen})
+    control_center:init({height = self.height})
     tasklist:init({screen = config.screen,height = self.height})
     clock:init({bg = beautiful.topbar_bg})
     systray:init({screen = config.screen})
+    layoutbox:init({height = self.height})
 
     local topbar_bg_clickable = "#cdd1d3cc"
     common.clickable(startup.widget,beautiful.startup_bg,beautiful.startup_bg .. "cc")
@@ -58,12 +60,13 @@ function topbar:init(config)
                     {
                         wibox.widget{
                             systray.widget,
-                            right = 10,
                             top  = self.height / 10,
                             bottom = self.height / 10,
                             widget = wibox.container.margin
                         },
+                        layoutbox.widget,
                         clock.widget,
+                        spacing = 5,
                         layout = wibox.layout.fixed.horizontal
                     },
                     right = 10,

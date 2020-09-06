@@ -5,7 +5,7 @@ local config_dir = gears.filesystem.get_xdg_config_home() .. "flyawesome/"
 
 -- [[ config modkey and some default apps ]]
     local modkey = "Mod4"
-    local terminal = "kitty"
+    local terminal = "alacritty"
 -- ]]
 
 -- [[ config tag 
@@ -16,22 +16,32 @@ local tag = {
         name = "Terminal",
         icon = config_dir .. "/assets/icons/taglist_terminal.svg",
         icon_selected = config_dir .. "assets/icons/taglist_terminal_selected.svg",
-        default = true
+        default = true,
+        layout = awful.layout.suit.spiral.dwindle 	
     },
     {
         name = "Browser",
         icon = config_dir .. "assets/icons/taglist_browser.svg",
-        icon_selected =  config_dir .. "assets/icons/taglist_browser_selected.svg"
+        icon_selected =  config_dir .. "assets/icons/taglist_browser_selected.svg",
+        layout = awful.layout.suit.max
     },
     {
         name = "Document",
         icon = config_dir .. "assets/icons/taglist_document.svg",
-        icon_selected =  config_dir .. "assets/icons/taglist_document_selected.svg"
+        icon_selected =  config_dir .. "assets/icons/taglist_document_selected.svg",
+        layout = awful.layout.suit.max
     },
     {
         name = "Code",
         icon = config_dir .. "assets/icons/taglist_code.svg",
-        icon_selected =  config_dir .. "assets/icons/taglist_code_selected.svg"
+        icon_selected =  config_dir .. "assets/icons/taglist_code_selected.svg",
+        layout = awful.layout.suit.max
+    },
+    {
+        name = "Entertainment",
+        icon = config_dir .. "assets/icons/taglist_entertainment.svg",
+        icon_selected =  config_dir .. "assets/icons/taglist_entertainment_selected.svg",
+        layout = awful.layout.suit.floating
     }
 }
 -- ]]
@@ -119,6 +129,69 @@ awful.keyboard.append_global_keybindings({
               {description = "view next", group = "tag"}),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}),
+    awful.key(
+		{modkey},
+		'space',
+		function()
+			awful.layout.inc(1)
+		end,
+		{description = 'select next layout', group = 'layout'}
+	),
+	awful.key(
+		{modkey, 'Shift'},
+		'space',
+		function()
+			awful.layout.inc(-1)
+		end,
+		{description = 'select previous layout', group = 'layout'}
+    ),
+    awful.key(
+		{modkey}, 
+		'w', 
+		awful.tag.viewprev, 
+		{description = 'view previous tag', group = 'tag'}
+	),
+	
+	awful.key(
+		{modkey}, 
+		's', 
+		awful.tag.viewnext, 
+		{description = 'view next tag', group = 'tag'}
+	),
+	awful.key(
+		{modkey}, 
+		'Escape', 
+		awful.tag.history.restore, 
+		{description = 'alternate between current and previous tag', group = 'tag'}
+    ),
+    awful.key({ modkey, 'Control' }, 
+		'w',
+		function ()
+			-- tag_view_nonempty(-1)
+			local focused = awful.screen.focused()
+			for i = 1, #focused.tags do
+				awful.tag.viewidx(-1, focused)
+				if #focused.clients > 0 then
+					return
+				end
+			end
+		end, 
+		{description = 'view previous non-empty tag', group = 'tag'}
+	),
+	awful.key({ modkey, 'Control' }, 
+		's',
+		function ()
+			-- tag_view_nonempty(1)
+			local focused =  awful.screen.focused()
+			for i = 1, #focused.tags do
+				awful.tag.viewidx(1, focused)
+				if #focused.clients > 0 then
+					return
+				end
+			end
+		end, 
+		{description = 'view next non-empty tag', group = 'tag'}
+	),
 })
 
 -- ]]
@@ -135,13 +208,13 @@ awful.keyboard.append_global_keybindings({
 
 -- [[ config for global client related buttons and keys
     awful.keyboard.append_global_keybindings({
-    awful.key({ modkey,           }, "j",
+    awful.key({ modkey,           }, "a",
         function ()
             awful.client.focus.byidx( 1)
         end,
         {description = "focus next by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "k",
+    awful.key({ modkey,           }, "d",
         function ()
             awful.client.focus.byidx(-1)
         end,
@@ -191,7 +264,17 @@ awful.keyboard.append_global_keybindings({
 	    		c:kill()
 	    	end,
 	    	{description = 'close', group = 'client'}
-	    ),
+        ),
+        awful.key(
+		{modkey},
+		'f',
+		function(c)
+			-- Toggle fullscreen
+			c.fullscreen = not c.fullscreen
+			c:raise()
+		end,
+		{description = 'toggle fullscreen', group = 'client'}
+	)
     }
 -- ]]
 
@@ -207,13 +290,19 @@ awful.keyboard.append_global_keybindings({
 		awesome.quit, 
 		{description = 'quit awesome', group = 'awesome'}
 	),
+    awful.key({modkey}, 
+		'e', 
+		awesome.emit_signal("startup::show_panel"), 
+		{description = 'quit awesome', group = 'awesome'}
+	),
     })
 -- ]]
 
 -- [[ autostart apps 
     local autostart = {
         "picom",
-        "redshift"
+        "redshift",
+        "fcitx"
     }
 --]]
 
