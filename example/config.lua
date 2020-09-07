@@ -303,16 +303,21 @@ awful.keyboard.append_global_keybindings({
 
 -- [[ config keys for awesome
     awful.keyboard.append_global_keybindings({
-        awful.key({modkey, 'Control'}, 
-		'r', 
+        awful.key({modkey, "Control"}, 
+		"r", 
 		awesome.restart, 
-		{description = 'reload awesome', group = 'awesome'}
+		{description = "reload awesome", group = "awesome"}
 	),
-	awful.key({modkey, 'Control'}, 
-		'q', 
+	awful.key({modkey, "Control"}, 
+		"q", 
 		awesome.quit, 
-		{description = 'quit awesome', group = 'awesome'}
-	),
+		{description = "quit awesome", group = "awesome"}
+    ),
+    awful.key({ modkey, "Shift"}, "s",
+    function()
+        awesome.emit_signal("hotkeys_popup::show_help")
+    end,
+              {description="show help", group="awesome"}),
     })
 -- ]]
 

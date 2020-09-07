@@ -14,6 +14,7 @@ local tasklist = require("theme.fly.widget.tasklist")
 local clock = require("theme.fly.widget.clock")
 local systray = require("theme.fly.widget.systray")
 local layoutbox = require("theme.fly.widget.layoutbox")
+local hotkeys_popup = require("theme.fly.widget.hotkeys_popup")
 
 -- import configurations
 local icons = require("theme.assets.icons")
@@ -40,6 +41,7 @@ function topbar:init(config)
     clock:init({bg = beautiful.topbar_bg})
     systray:init({screen = config.screen})
     layoutbox:init({height = self.height})
+    hotkeys_popup:init({})
 
     local topbar_bg_clickable = "#cdd1d3cc"
     common.clickable(startup.widget,beautiful.startup_bg,beautiful.startup_bg .. "cc")
