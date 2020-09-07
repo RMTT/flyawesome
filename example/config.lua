@@ -17,31 +17,36 @@ local tag = {
         icon = config_dir .. "/assets/icons/taglist_terminal.svg",
         icon_selected = config_dir .. "assets/icons/taglist_terminal_selected.svg",
         default = true,
-        layout = awful.layout.suit.spiral.dwindle 	
+        layout = awful.layout.suit.spiral.dwindle,
+        default_app = "alacritty"
     },
     {
         name = "Browser",
         icon = config_dir .. "assets/icons/taglist_browser.svg",
         icon_selected =  config_dir .. "assets/icons/taglist_browser_selected.svg",
-        layout = awful.layout.suit.max
+        layout = awful.layout.suit.max,
+        default_app = "firefox"
     },
     {
         name = "Document",
         icon = config_dir .. "assets/icons/taglist_document.svg",
         icon_selected =  config_dir .. "assets/icons/taglist_document_selected.svg",
-        layout = awful.layout.suit.max
+        layout = awful.layout.suit.max,
+        default_app = "masterpdfeditor5"
     },
     {
         name = "Code",
         icon = config_dir .. "assets/icons/taglist_code.svg",
         icon_selected =  config_dir .. "assets/icons/taglist_code_selected.svg",
-        layout = awful.layout.suit.max
+        layout = awful.layout.suit.max,
+        default_app = "code-oss"
     },
     {
         name = "Entertainment",
         icon = config_dir .. "assets/icons/taglist_entertainment.svg",
         icon_selected =  config_dir .. "assets/icons/taglist_entertainment_selected.svg",
-        layout = awful.layout.suit.floating
+        layout = awful.layout.suit.floating,
+        default_app = "telegram-desktop"
     }
 }
 -- ]]
@@ -201,7 +206,24 @@ awful.keyboard.append_global_keybindings({
 -- [[ config keys for launch some apps
 awful.keyboard.append_global_keybindings({
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
-              {description = "open a terminal", group = "launcher"})
+              {description = "open a terminal", group = "launcher"}),
+    awful.key({modkey}, 
+        'e', 
+        function()
+            awesome.emit_signal("startup::show_panel")
+        end, 
+		{description = "show startup panel", group = "launcher"}
+    ),
+    awful.key({modkey, "Shift"}, 
+    'd', 
+    function()
+        awful.spawn(awful.screen.focused().selected_tag.default_app,
+        {
+            tag = mouse.screen.selected_tag
+        })
+    end, 
+    {description = "launch default app for current tag", group = 'launcher'}
+),
 })
 --]]
 
@@ -289,13 +311,6 @@ awful.keyboard.append_global_keybindings({
 		'q', 
 		awesome.quit, 
 		{description = 'quit awesome', group = 'awesome'}
-	),
-    awful.key({modkey}, 
-        'e', 
-        function()
-            awesome.emit_signal("startup::show_panel")
-        end, 
-		{description = 'show startup panel', group = 'awesome'}
 	),
     })
 -- ]]
