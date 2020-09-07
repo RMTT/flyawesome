@@ -268,8 +268,8 @@ awful.keyboard.append_global_keybindings({
         awful.button(
 		{},
 		1,
-		function(c)
-			client.focus = c
+        function(c)
+            c:activate()
 			c:raise()
 		end
 	    ),
@@ -291,10 +291,10 @@ awful.keyboard.append_global_keybindings({
         awful.key(
 		{modkey},
 		'f',
-		function(c)
+        function(c)
 			-- Toggle fullscreen
 			c.fullscreen = not c.fullscreen
-			c:raise()
+            c:raise()
 		end,
 		{description = 'toggle fullscreen', group = 'client'}
 	)

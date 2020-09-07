@@ -82,6 +82,55 @@ function topbar:init(config)
         control_center.widget,
         layout = wibox.layout.align.horizontal
     }
+
+    
+    -- handle topbar visibility when client want to fullscreen
+    client.connect_signal("property::fullscreen",function(c)
+        local tag = awful.screen.focused().selected_tag
+        if c.fullscreen then
+            tag.num_fullscreen = tag.num_fullscreen + 1
+        else
+            tag.num_fullscreen = tag.num_fullscreen - 1
+        end
+
+        if tag.num_fullscreen < 0 then
+            tag.num_fullscreen = 0
+        end
+
+        topbar:update_visible()
+    end)
+
+    client.connect_signal("request::activate",function()
+        topbar:update_visible()
+    end)
+
+    tag.connect_signal("property::selected",function()
+        topbar:update_visible()
+    end)
+end
+
+function topbar:show()
+    self.widget.visible = true
+end
+
+function topbar:hide()
+    self.widget.visible = false
+end
+
+function topbar:update_visible()
+    local s = awful.screen.focused()
+    local tag = s.selected_tag
+
+    if not tag or not client.focus then
+        topbar:show()
+        return
+    end
+    
+    if tag.num_fullscreen > 0 and client.focus.fullscreen then
+        self:hide()
+    else
+        self:show()
+    end
 end
 
 return topbar

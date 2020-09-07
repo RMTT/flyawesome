@@ -47,7 +47,8 @@ function fly:init(config)
                 gap_single_client = false,
                 gap = beautiful.useless_gap,
                 layout = t.layout,
-                default_app = t.default_app
+                default_app = t.default_app,
+                num_fullscreen = 0
             }
         )
     end
