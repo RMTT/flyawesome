@@ -291,9 +291,11 @@ awful.keyboard.append_global_keybindings({
 		{description = 'quit awesome', group = 'awesome'}
 	),
     awful.key({modkey}, 
-		'e', 
-		awesome.emit_signal("startup::show_panel"), 
-		{description = 'quit awesome', group = 'awesome'}
+        'e', 
+        function()
+            awesome.emit_signal("startup::show_panel")
+        end, 
+		{description = 'show startup panel', group = 'awesome'}
 	),
     })
 -- ]]
