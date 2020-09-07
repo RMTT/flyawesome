@@ -12,7 +12,7 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.startup_bg = "#5698c3"
+theme.startup_bg = "#002b36"
 theme.topbar_bg = "#d8e3e7"
 theme.bg_systray = theme.topbar_bg
 theme.systray_icon_spacing = 5

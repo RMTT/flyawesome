@@ -12,7 +12,7 @@ local awful = require("awful")
 
 -- import widgets and layouts and rules
 local topbar = require("theme.fly.layout.topbar")
-local rule = require("theme.fly.module.rule")
+local dropdown = require("theme.fly.widget.dropdown")
 
 -- import configurations
 local icons = require("theme.assets.icons")
@@ -22,6 +22,7 @@ local sig = require("theme.fly.signal")
 
 -- import modules
 local autostart = require("theme.fly.module.autostart")
+local rule = require("theme.fly.module.rule")
 
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/fly/theme.lua")
 
@@ -63,7 +64,7 @@ function fly:init(config)
 			t.gap = beautiful.useless_gap
 		end
 	end
-)
+    )
 -- ]]
 
     -- add client ruls
@@ -80,9 +81,16 @@ function fly:init(config)
         screen = config.screen,
         tag_buttons = config.tag_buttons
     }
-
     config.screen.topbar = topbar.widget
     
+    dropdown:init({
+        terminal = config.terminal_dropdown,
+        height = self.geometry.height * 0.4,
+        position = "bottom",
+        anchor = "middle",
+        parent = topbar.widget
+    })
+
     autostart:init({apps = config.autostart})
 end
 

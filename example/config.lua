@@ -7,6 +7,7 @@ local config_dir = gears.filesystem.get_xdg_config_home() .. "flyawesome/"
 -- [[ config modkey and some default apps ]]
     local modkey = "Mod4"
     local terminal = "alacritty"
+    local terminal_dropdown = "alacritty --class Dropdown"
 -- ]]
 
 -- [[ config tag 
@@ -209,14 +210,14 @@ awful.keyboard.append_global_keybindings({
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({modkey}, 
-        'e', 
+        "e", 
         function()
             awesome.emit_signal("startup::show_panel")
         end, 
 		{description = "show startup panel", group = "launcher"}
     ),
     awful.key({modkey, "Shift"}, 
-    'd', 
+    "d", 
     function()
         awful.spawn(awful.screen.focused().selected_tag.default_app,
         {
@@ -224,7 +225,12 @@ awful.keyboard.append_global_keybindings({
         })
     end, 
     {description = "launch default app for current tag", group = 'launcher'}
-),
+    ),
+    awful.key({modkey,}, "`",
+    function()
+        awesome.emit_signal("dropdown::toggle")
+    end,
+    {description = "toggle dropdown terminal", group = 'launcher'})
 })
 --]]
 
@@ -332,6 +338,11 @@ client_ruled.append_rule {
             "Kitty"
         }
     },
+    except_any = {
+        instance = {
+            "Dropdown"
+        }
+    },
     properties = {
         tag = "Terminal",
     },
@@ -400,6 +411,7 @@ client_ruled.append_rule {
 return {
     theme = "fly",   -- choose theme
     modkey = modkey,
+    terminal_dropdown = terminal_dropdown,
     tags = tag,
     tag_buttons = tag_buttons,
     client_buttons = client_buttons,

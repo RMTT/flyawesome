@@ -6,5 +6,8 @@ return {
     },
     hotkeys_popup = {
         show_help = "hotkeys_popup::show_help"
+    },
+    dropdown = {
+        toggle = "dropdown::toggle"
     }
 }

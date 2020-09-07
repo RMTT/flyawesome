@@ -35,7 +35,8 @@ local handle_theme = function(s)
         tag_buttons = res.tag_buttons,
         client_buttons = res.client_buttons,
         client_keys = res.client_keys,
-        autostart = res.autostart
+        autostart = res.autostart,
+        terminal_dropdown = res.terminal_dropdown
     }
 end
 
