@@ -12,7 +12,7 @@ Just one new themes for awesomewm inspired adi1090x's polybar themes and manilar
 `git clone --depth=1 https://github.com/RMTT/flyawesome.git`
 #### move files
 `cp -r flyawesome ~/.config/awesome`
-`cp -r flyawesome ~/.config/flyawesome`
+`cp -r flyawesome/example ~/.config/flyawesome`
 
 ### Update
 Just pull from this repo
