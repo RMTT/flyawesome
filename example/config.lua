@@ -1,5 +1,6 @@
 local gears = require("gears")
 local awful = require("awful")
+local client_ruled = require("ruled.client")
 
 local config_dir = gears.filesystem.get_xdg_config_home() .. "flyawesome/"
 
@@ -313,6 +314,73 @@ awful.keyboard.append_global_keybindings({
 		{description = 'quit awesome', group = 'awesome'}
 	),
     })
+-- ]]
+
+-- [[ config tag rules
+
+-- [[ config window to specific tag
+-- for tag "Terminal"
+client_ruled.append_rule {
+    rule_any    = {
+        class = {
+            "Alacritty",
+            "Kitty"
+        }
+    },
+    properties = {
+        tag = "Terminal",
+    },
+}
+
+-- for tag "Browser"
+client_ruled.append_rule {
+    rule_any    = {
+        class = {
+            "firefox"
+        }
+    },
+    properties = {
+        tag = "Browser",
+    },
+}
+
+-- for tag "Document"
+client_ruled.append_rule {
+    rule_any    = {
+        class = {
+            "masterpdfeditor",
+        }
+    },
+    properties = {
+        tag = "Document",
+    },
+}
+
+-- for tag "Code"
+client_ruled.append_rule {
+    rule_any    = {
+        class = {
+            "code-oss",
+        }
+    },
+    properties = {
+        tag = "Code",
+    },
+}
+
+-- for tag "Entertainment"
+client_ruled.append_rule {
+    rule_any    = {
+        class = {
+            "telegram-desktop",
+        }
+    },
+    properties = {
+        tag = "Entertainment",
+    },
+}
+-- ]]
+
 -- ]]
 
 -- [[ autostart apps 
