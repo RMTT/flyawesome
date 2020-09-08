@@ -58,7 +58,7 @@ theme.border_color_marked = "#91231c"
 --theme.taglist_bg_focus = "#ff0000"
 
 theme.tasklist_bg_focus = theme.startup_bg
-theme.tasklist_bg_minimize = "#30161c"
+theme.tasklist_bg_minimize = "#e2d849"
 
 -- Generate taglist squares:
 local taglist_square_size = dpi(4)
