@@ -38,8 +38,10 @@ function dropdown:init(config)
     end)
 
     client.connect_signal("request::unmanage", function(c)
-        dropdown.pid = nil
-        dropdown.terminal_object = nil
+        if dropdown.pid and dropdown.pid == c.pid then
+            dropdown.pid = nil
+            dropdown.terminal_object = nil
+        end
     end)
 end
 

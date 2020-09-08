@@ -13,7 +13,7 @@ local startup = {}
 
 function show_panel(offset_y)
     common.show_rofi("drun", gears.filesystem.get_configuration_dir() .. "theme/fly/assets/rofi/startup_panel.rasi",
-             "north west", "north west", 0, math.floor(offset_y),"50%","25%")
+             "north west", "north west", 0, math.floor(offset_y),"50%",nil)
 end
 
 function startup:init(config)
