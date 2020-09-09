@@ -370,7 +370,7 @@ client_ruled.append_rule {
     rule_any = {
         class = {
             "Zotero",
-            "Dolpin"
+            "dolpin"
         }
     },
     properties = {
