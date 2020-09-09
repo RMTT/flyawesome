@@ -44,6 +44,13 @@ local tag = {
         default_app = "code-oss"
     },
     {
+        name = "Files",
+        icon = config_dir .. "assets/icons/taglist_files.svg",
+        icon_selected = config_dir .. "assets/icons/taglist_files_selected.svg",
+        layout = awful.layout.suit.floating,
+        default_app = "dolphin"
+    },
+    {
         name = "Entertainment",
         icon = config_dir .. "assets/icons/taglist_entertainment.svg",
         icon_selected = config_dir .. "assets/icons/taglist_entertainment_selected.svg",
@@ -338,7 +345,7 @@ client_ruled.append_rule {
 client_ruled.append_rule {
     rule_any = {
         class = {
-            "masterpdfeditor",
+            "masterpdfeditor5",
         }
     },
     properties = {
@@ -358,11 +365,25 @@ client_ruled.append_rule {
     },
 }
 
+-- for tag "Files"
+client_ruled.append_rule {
+    rule_any = {
+        class = {
+            "Zotero",
+            "Dolpin"
+        }
+    },
+    properties = {
+        tag = "Files",
+    },
+}
+
 -- for tag "Entertainment"
 client_ruled.append_rule {
     rule_any = {
         class = {
             "telegram-desktop",
+            "Thunderbird"
         }
     },
     properties = {
