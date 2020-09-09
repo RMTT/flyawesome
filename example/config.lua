@@ -375,7 +375,7 @@ client_ruled.append_rule {
 
 -- [[ rule for different window type
 -- Dialogs
-ruled.client.append_rule {
+client_ruled.append_rule {
     id = 'dialog',
     rule_any = {
         type = { 'dialog' },
@@ -395,7 +395,7 @@ ruled.client.append_rule {
 }
 
 -- Modals
-ruled.client.append_rule {
+client_ruled.append_rule {
     id = 'dialog',
     rule_any = {
         type = { 'modal' }
@@ -414,7 +414,7 @@ ruled.client.append_rule {
 }
 
 -- Utilities
-ruled.client.append_rule {
+client_ruled.append_rule {
     id = 'utility',
     rule_any = {
         type = { 'utility' }
@@ -430,7 +430,7 @@ ruled.client.append_rule {
 }
 
 -- Splash
-ruled.client.append_rule {
+client_ruled.append_rule {
     id = 'splash',
     rule_any = {
         type = { 'splash' }
@@ -453,7 +453,7 @@ ruled.client.append_rule {
 
 -- [[ autostart apps 
 local autostart = {
-    "picom",
+    "picom --experimental-backends --dbus -b --config " .. config_dir .. "assets/picom/picom.conf",
     "redshift",
     "fcitx"
 }
