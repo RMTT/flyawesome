@@ -19,5 +19,5 @@ Just pull from this repo
 
 
 ### Current preview
-![preview](https://i.imgur.com/vWQ6aV8.png)
+![preview](https://i.imgur.com/KOep6V5.png)
 
