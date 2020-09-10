@@ -50,7 +50,8 @@ function fly:init(config)
                 gap = beautiful.useless_gap,
                 layout = t.layout,
                 default_app = t.default_app,
-                num_fullscreen = 0
+                num_fullscreen = 0,
+                has_dropdown = false
             })
     end
 

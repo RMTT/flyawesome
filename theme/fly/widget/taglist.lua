@@ -10,26 +10,26 @@ function taglist:init(config)
 
     taglist.widget = awful.widget.taglist {
         screen = config.screen,
-        filter  = awful.widget.taglist.filter.all,
+        filter = awful.widget.taglist.filter.all,
         widget_template = {
             {
                 _id = "icon_container",
                 forced_width = config.height,
-                forced_height = config.height, 
+                forced_height = config.height,
                 widget = wibox.container.place
             },
             top = 0,
             color = beautiful.startup_bg,
-            create_callback = function(widget,t,index,tags)
+            create_callback = function(widget, t, index, tags)
                 local container
 
-                for _,w in pairs(widget:get_all_children()) do
+                for _, w in pairs(widget:get_all_children()) do
                     if w._id == "icon_container" then
                         container = w
                     end
                 end
-                
-                local icon = wibox.widget{
+
+                local icon = wibox.widget {
                     _id = "icon",
                     forced_height = config.height * 0.6,
                     forced_width = config.height * 0.6,
@@ -37,9 +37,15 @@ function taglist:init(config)
                 }
 
                 container.widget = icon
-                
+
                 local update_icon = function(t)
                     local count = #t:clients()
+                    if t.has_dropdown then
+                        count = count - 1
+                        if count < 0 then
+                            count = 0
+                        end
+                    end
 
                     if t.selected then
                         widget.top = top_margin_height
@@ -55,9 +61,9 @@ function taglist:init(config)
 
                 update_icon(t)
 
-                t:connect_signal("property::selected",update_icon)
+                t:connect_signal("property::selected", update_icon)
 
-                t:connect_signal("taglist::update_icon",update_icon)
+                t:connect_signal("taglist::update_icon", update_icon)
             end,
             widget = wibox.container.margin
         },
