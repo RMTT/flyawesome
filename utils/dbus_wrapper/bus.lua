@@ -15,14 +15,11 @@ mt.__index = {
         local result, err = self.bus:async_send_message_with_reply(message, Gio.DBusSendMessageFlags.NONE,
             timeout, nil)
 
-        local body = result:get_body()
-
-        if body then
-            if err then
-                return false, body
-            else
-                return true, body
-            end
+        body = result:get_body()
+        if err or result:get_message_type() == "ERROR" then
+            return false, body
+        else
+            return true, body
         end
     end
 }
