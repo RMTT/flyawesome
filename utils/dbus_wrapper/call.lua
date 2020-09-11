@@ -1,8 +1,31 @@
---
--- Created by IntelliJ IDEA.
--- User: mt
--- Date: 9/11/20
--- Time: 1:12 PM
--- To change this template use File | Settings | File Templates.
---
+local call = {}
 
+local mt = {}
+
+function mt.__call(self, bus)
+    if not self.timeout then
+        self.timeout = -1
+    end
+    return bus:call(self.name, self.path, self.interface, self.member, self.timeout, self.args)
+end
+
+mt.__index = {
+    set = function(self, name, path, interface, member, timeout, args)
+        self.name = name
+        self.path = path
+        self.interface = interface
+        self.member = member
+        self.args = args
+        self.timeout = timeout
+    end
+}
+
+function call.new()
+    local obj = {}
+    setmetatable(obj, mt)
+
+    return obj
+end
+
+
+return call
