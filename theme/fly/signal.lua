@@ -9,5 +9,8 @@ return {
     },
     dropdown = {
         toggle = "dropdown::toggle"
+    },
+    fly = {
+        geoinfo_update = "geoinfo::update"
     }
 }
