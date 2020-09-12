@@ -15,7 +15,7 @@ local theme = {}
 
 theme.startup_bg = "#002b36"
 theme.topbar_bg = "#d8e3e7"
-theme.bg_systray = theme.topbar_bg
+theme.bg_systray = theme.startup_bg
 theme.systray_icon_spacing = 5
 theme.text_bg_normal = "#000000"
 theme.layoutbox_fg = "#7a7374"
@@ -35,7 +35,6 @@ theme.bg_normal = "#d8e3e7"
 theme.bg_focus = "#535d6c"
 theme.bg_urgent = "#ff0000"
 theme.bg_minimize = "#444444"
-theme.bg_systray = theme.bg_normal
 
 theme.fg_normal = "#aaaaaa"
 theme.fg_focus = "#ffffff"
