@@ -2,6 +2,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")
 local beautiful = require("beautiful")
+local sig = require("theme.fly.signal")
 
 -- import flyawesome lib
 local common = require("utils.common")
@@ -25,7 +26,7 @@ function topbar:init(config)
     self.height = config.height / 40
     self.width = config.width
 
-    self.widget = awful.wibar{
+    self.widget = awful.wibar {
         position = "top",
         width = self.width,
         height = self.height,
@@ -34,40 +35,44 @@ function topbar:init(config)
         ontop = true
     }
 
-    taglist:init({screen = config.screen,height = self.height,tag_buttons = config.tag_buttons})
-    startup:init({height = self.height, screen = config.screen})
-    control_center:init({height = self.height})
-    tasklist:init({screen = config.screen,height = self.height})
-    clock:init({bg = beautiful.topbar_bg})
-    systray:init({screen = config.screen})
-    layoutbox:init({height = self.height})
+    taglist:init({ screen = config.screen, height = self.height, tag_buttons = config.tag_buttons })
+    startup:init({ height = self.height, screen = config.screen })
+    control_center:init({ height = self.height })
+    tasklist:init({ screen = config.screen, height = self.height })
+    clock:init({ bg = beautiful.topbar_bg })
+    systray:init({ screen = config.screen, width = self.width, height = self.height })
+    layoutbox:init({ height = self.height })
     hotkeys_popup:init({})
 
     local topbar_bg_clickable = "#cdd1d3cc"
-    common.clickable(startup.widget,beautiful.startup_bg,beautiful.startup_bg .. "cc")
-    common.clickable(control_center.widget,beautiful.startup_bg,beautiful.startup_bg .. "cc")
-    common.clickable(clock.widget,beautiful.topbar_bg, topbar_bg_clickable)
-    
+    common.clickable(startup.widget, beautiful.startup_bg, beautiful.startup_bg .. "cc")
+    common.clickable(control_center.widget, beautiful.startup_bg, beautiful.startup_bg .. "cc")
+    common.clickable(clock.widget, beautiful.topbar_bg, topbar_bg_clickable)
+
     topbar.widget.widget = {
         startup.widget,
-        wibox.widget{
+        wibox.widget {
             {
-                wibox.widget{
+                wibox.widget {
                     taglist.widget,
                     left = 10,
                     widget = wibox.container.margin
                 },
                 tasklist.widget,
-                wibox.widget{
+                wibox.widget {
                     {
-                        wibox.widget{
+                        wibox.widget {
                             systray.widget,
-                            top  = self.height / 10,
-                            bottom = self.height / 10,
-                            widget = wibox.container.margin
+                            widget = wibox.container.place
                         },
-                        layoutbox.widget,
-                        clock.widget,
+                        wibox.widget {
+                            layoutbox.widget,
+                            widget = wibox.container.place
+                        },
+                        wibox.widget {
+                            clock.widget,
+                            widget = wibox.container.place
+                        },
                         spacing = 5,
                         layout = wibox.layout.fixed.horizontal
                     },
@@ -85,9 +90,8 @@ function topbar:init(config)
         layout = wibox.layout.align.horizontal
     }
 
-    
     -- handle topbar visibility when client want to fullscreen
-    client.connect_signal("property::fullscreen",function(c)
+    client.connect_signal("property::fullscreen", function(c)
         local tag = awful.screen.focused().selected_tag
         if c.fullscreen then
             tag.num_fullscreen = tag.num_fullscreen + 1
@@ -102,11 +106,11 @@ function topbar:init(config)
         topbar:update_visible()
     end)
 
-    client.connect_signal("request::activate",function()
+    client.connect_signal("request::activate", function()
         topbar:update_visible()
     end)
 
-    tag.connect_signal("property::selected",function()
+    tag.connect_signal("property::selected", function()
         topbar:update_visible()
     end)
 end
@@ -127,7 +131,7 @@ function topbar:update_visible()
         topbar:show()
         return
     end
-    
+
     if tag.num_fullscreen > 0 and client.focus.fullscreen then
         self:hide()
     else
