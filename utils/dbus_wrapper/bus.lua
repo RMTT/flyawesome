@@ -12,15 +12,19 @@ mt.__index = {
             message:set_body(args)
         end
 
-        local result, err = self.bus:async_send_message_with_reply(message, Gio.DBusSendMessageFlags.NONE,
+        local result = self.bus:send_message_with_reply_sync(message, Gio.DBusSendMessageFlags.NONE,
             timeout, nil)
 
-        body = result:get_body()
-        if err or result:get_message_type() == "ERROR" then
-            return false, body
+        if result and result:get_message_type() == "ERROR" then
+            return false, result:get_body()
+        elseif result then
+            return true, result:get_body()
         else
-            return true, body
+            return true
         end
+    end,
+    signal_subscribe = function(self, ...)
+        self.bus:signal_subscribe(...)
     end
 }
 
@@ -31,17 +35,21 @@ function bus.new(type)
     local a, b
     local obj = {}
     setmetatable(obj, mt)
-    if type == Gio.BusType.SYSTEM and not system_bus then
-        Gio.bus_get(type, nil, coroutine.running())
-        a, b = coroutine.yield()
-        system_bus = Gio.bus_get_finish(b)
+    if type == Gio.BusType.SYSTEM then
+        if not system_bus then
+            Gio.bus_get(type, nil, coroutine.running())
+            a, b = coroutine.yield()
+            system_bus = Gio.bus_get_finish(b)
+        end
         obj.bus = system_bus
     end
 
-    if type == Gio.BusType.SESSION and not session_bus then
-        Gio.bus_get(type, nil, coroutine.running())
-        a, b = coroutine.yield()
-        session_bus = Gio.bus_get_finish(b)
+    if type == Gio.BusType.SESSION then
+        if not session_bus then
+            Gio.bus_get(type, nil, coroutine.running())
+            a, b = coroutine.yield()
+            session_bus = Gio.bus_get_finish(b)
+        end
         obj.bus = session_bus
     end
 
