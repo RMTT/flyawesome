@@ -2,6 +2,7 @@ local awful = require("awful")
 local sig = require("theme.fly.signal")
 
 local dropdown = {}
+local tags = {}
 
 function dropdown:init(config)
     self.pid = nil
@@ -41,10 +42,9 @@ function dropdown:init(config)
     end)
 
     client.connect_signal("request::unmanage", function(c)
-
+        tags = {}
         if dropdown.pid and dropdown.pid == c.pid then
-            tags = c:tags()
-            for index in #tags do
+            for index = 1, #tags do
                 tags[index].has_dropdown = false
             end
 
