@@ -10,7 +10,7 @@ return {
     dropdown = {
         toggle = "dropdown::toggle"
     },
-    fly = {
+    geoinfo = {
         geoinfo_update = "geoinfo::update"
     }
 }
