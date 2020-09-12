@@ -139,8 +139,8 @@ awful.keyboard.append_global_keybindings({
         { description = "view previous", group = "tag" }),
     awful.key({ modkey, }, "Right", awful.tag.viewnext,
         { description = "view next", group = "tag" }),
-    awful.key({ modkey, }, "Escape", awful.tag.history.restore,
-        { description = "go back", group = "tag" }),
+    awful.key({ modkey }, 'Escape', awful.tag.history.restore, 
+	{description = 'alternate between current and previous tag', group = 'tag'}),
     awful.key({ modkey },
         'space',
         function()
@@ -162,10 +162,6 @@ awful.keyboard.append_global_keybindings({
         's',
         awful.tag.viewnext,
         { description = 'view next tag', group = 'tag' }),
-    awful.key({ modkey },
-        'Escape',
-        awful.tag.history.restore,
-        { description = 'alternate between current and previous tag', group = 'tag' }),
     awful.key({ modkey, 'Control' },
         'w',
         function()
