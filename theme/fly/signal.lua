@@ -12,5 +12,8 @@ return {
     },
     geoinfo = {
         geoinfo_update = "geoinfo::update"
+    },
+    network_manager = {
+        state_changed = "network::changed"
     }
 }

@@ -25,6 +25,7 @@ local sig = require("theme.fly.signal")
 local autostart = require("theme.fly.module.autostart")
 local rule = require("theme.fly.module.rule")
 local geoinfo = require("theme.fly.module.geoinfo")
+local network_manager = require("theme.fly.module.network_manager")
 
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/fly/theme.lua")
 
@@ -93,6 +94,9 @@ function fly:init(config)
     notification:init({ width = self.geometry.width / 5, height = self.geometry.height / 12 })
 
     autostart:init({ apps = config.autostart })
+
+    -- initialize network manager
+    network_manager:init({})
 
     -- config geoinfo
     geoinfo:init({})
