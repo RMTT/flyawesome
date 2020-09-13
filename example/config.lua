@@ -402,7 +402,6 @@ client_ruled.append_rule {
         titlebars_enabled = true,
         floating = true,
         above = true,
-        draw_backdrop = true,
         skip_decoration = true,
         shape = function(cr, width, height)
             gears.shape.rounded_rect(cr, width, height, beautiful.client_radius)
@@ -421,7 +420,6 @@ client_ruled.append_rule {
         titlebars_enabled = true,
         floating = true,
         above = true,
-        draw_backdrop = true,
         skip_decoration = true,
         shape = function(cr, width, height)
             gears.shape.rounded_rect(cr, width, height, beautiful.client_radius)
@@ -440,7 +438,6 @@ client_ruled.append_rule {
         titlebars_enabled = false,
         floating = true,
         hide_titlebars = true,
-        draw_backdrop = false,
         skip_decoration = true,
         placement = awful.placement.centered
     }
@@ -457,7 +454,6 @@ client_ruled.append_rule {
         floating = true,
         above = true,
         hide_titlebars = true,
-        draw_backdrop = false,
         skip_decoration = true,
         shape = function(cr, width, height)
             gears.shape.rounded_rect(cr, width, height, beautiful.client_radius)
