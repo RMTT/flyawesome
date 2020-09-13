@@ -72,7 +72,6 @@ local function location_update(conn, sender, object_path, interface_name, signal
     local la, lo = get_location(new_path)
 
     if la and lo then
-        print(la, lo)
         awesome.emit_signal(sig.geoinfo.geoinfo_update, la, lo)
     end
 end
@@ -81,7 +80,6 @@ function geoinfo:init(config)
     Gio.Async.call(function()
         bus = Dbus.new(Gio.BusType.SYSTEM)
         local client_path = get_geoclue2_client()
-        print(client_path)
 
         bus:signal_subscribe("org.freedesktop.GeoClue2", "org.freedesktop.GeoClue2.Client", "LocationUpdated",
             nil, nil, Gio.DBusSignalFlags.NONE, location_update)
