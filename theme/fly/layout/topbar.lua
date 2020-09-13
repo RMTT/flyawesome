@@ -79,7 +79,7 @@ function topbar:init(config)
                             clock.widget,
                             widget = wibox.container.place
                         },
-                        spacing = 5,
+                        spacing = 10,
                         layout = wibox.layout.fixed.horizontal
                     },
                     right = 10,
