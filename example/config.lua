@@ -479,7 +479,7 @@ local module = {
         timezone = 8,
         latitude = 0,
         longitude = 0,
-        theme = "MonumentValley"
+        theme = "YourName"
     }
 }
 -- ]]
