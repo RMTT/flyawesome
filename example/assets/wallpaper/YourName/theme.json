@@ -1,0 +1,19 @@
+{
+  "imageFilename": "Your_Name_*.jpg",
+  "imageCredits": "wallpapyrus",
+  "sunriseImageList": [
+    3,
+    4
+  ],
+  "dayImageList": [
+    1,
+    5
+  ],
+  "sunsetImageList": [
+    4,
+    3
+  ],
+  "nightImageList": [
+    2
+  ]
+}
