@@ -56,11 +56,11 @@ The configuration for wallpaper, you can find it on the end of `config.lua`,is
 + 24 hours wallpaper
 
 ## Todo
-- [] lockscreen module
-- [] power manager module and widget
-- [] sound volume control
-- [] brightness control
-- [] notification beautify
+- [ ] lockscreen module
+- [ ] power manager module and widget
+- [ ] sound volume control
+- [ ] brightness control
+- [ ] notification beautify
 ### Current preview
 ![preview](https://i.imgur.com/TAvg49h.png)
 
