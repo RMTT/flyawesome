@@ -139,8 +139,8 @@ awful.keyboard.append_global_keybindings({
         { description = "view previous", group = "tag" }),
     awful.key({ modkey, }, "Right", awful.tag.viewnext,
         { description = "view next", group = "tag" }),
-    awful.key({ modkey }, 'Escape', awful.tag.history.restore, 
-	{description = 'alternate between current and previous tag', group = 'tag'}),
+    awful.key({ modkey }, 'Escape', awful.tag.history.restore,
+        { description = 'alternate between current and previous tag', group = 'tag' }),
     awful.key({ modkey },
         'space',
         function()
@@ -472,6 +472,17 @@ local autostart = {
 }
 --]]
 
+-- [[ configurations for some modules
+local module = {
+    wallpaper = {
+        mode = "auto",
+        timezone = 8,
+        latitude = 0,
+        longitude = 0,
+        theme = "MonumentValley"
+    }
+}
+-- ]]
 -- return to flyawesome
 return {
     theme = "fly", -- choose theme
@@ -481,5 +492,6 @@ return {
     tag_buttons = tag_buttons,
     client_buttons = client_buttons,
     client_keys = client_keys,
-    autostart = autostart
+    autostart = autostart,
+    module = module
 }

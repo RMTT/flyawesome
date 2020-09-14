@@ -16,13 +16,13 @@ local beautiful = require("beautiful")
 require("awful.autofocus")
 
 -- predefined variables
-local configuration_dir = gears.filesystem.get_xdg_config_home() .. "flyawesome"
+local configuration_dir = gears.filesystem.get_xdg_config_home() .. "flyawesome/"
 local configuration_filename = "config.lua"
 local theme_dir_name = "theme"
 
 -- load configurations
 local config = {}
-local status, res = pcall(dofile, configuration_dir .. "/" .. configuration_filename)
+local status, res = pcall(dofile, configuration_dir .. configuration_filename)
 
 print(res)
 -- handle screen decoration
@@ -36,24 +36,14 @@ local handle_theme = function(s)
         client_buttons = res.client_buttons,
         client_keys = res.client_keys,
         autostart = res.autostart,
-        terminal_dropdown = res.terminal_dropdown
+        terminal_dropdown = res.terminal_dropdown,
+        module = res.module,
+        configuration_dir = configuration_dir
     }
 end
 
 -- load configuration succeed
 if status then
-    setmetatable( config, {__mode = "v", __index = res} )
+    setmetatable(config, { __mode = "v", __index = res })
     screen.connect_signal("request::desktop_decoration", handle_theme)
-
-    screen.connect_signal("request::wallpaper", function(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
-end)
 end

@@ -26,6 +26,7 @@ local autostart = require("theme.fly.module.autostart")
 local rule = require("theme.fly.module.rule")
 local geoinfo = require("theme.fly.module.geoinfo")
 local network_manager = require("theme.fly.module.network_manager")
+local wallpaper = require("theme.fly.module.24hours_wallpaper")
 
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/fly/theme.lua")
 
@@ -100,6 +101,16 @@ function fly:init(config)
 
     -- config geoinfo
     geoinfo:init({})
+
+    -- config wallpaper
+    wallpaper:init(gears.table.join(config.module.wallpaper, {
+        screen = config.screen,
+        assets_dir = config.configuration_dir .. "assets/wallpaper/"
+    }))
+
+    awesome.connect_signal(sig.wallpaper.update_wallpaper, function(path)
+        awful.spawn("feh --bg-scale " .. path)
+    end)
 end
 
 

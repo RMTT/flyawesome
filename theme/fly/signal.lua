@@ -15,5 +15,8 @@ return {
     },
     network_manager = {
         state_changed = "network::changed"
+    },
+    wallpaper = {
+        update_wallpaper = "wallpaper::update"
     }
 }
