@@ -34,6 +34,19 @@ beautiful.init(gears.filesystem.get_configuration_dir() .. "theme/fly/theme.lua"
 local fly = {}
 
 function fly:init(config)
+    -- set default wallpaper first
+    screen.connect_signal("request::wallpaper", function(s)
+        -- Wallpaper
+        if beautiful.wallpaper then
+            local wallpaper = beautiful.wallpaper
+            -- If wallpaper is a function, call it with the screen
+            if type(wallpaper) == "function" then
+                wallpaper = wallpaper(s)
+            end
+            gears.wallpaper.maximized(wallpaper, s, true)
+        end
+    end)
+
     -- [[ config tags
     for _, t in pairs(config.tags) do
         local selected = false
