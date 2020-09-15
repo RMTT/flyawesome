@@ -137,7 +137,7 @@ function wallpaper:calculate_timer()
 
     -- duration: sunset start to sunset end
     if now > before_sunset and now < civil_dusk then
-        image_list = self.thme.sunsetImageList
+        image_list = self.theme.sunsetImageList
         time_start = before_sunset
         time_end = civil_dusk
     end
