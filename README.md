@@ -62,6 +62,17 @@ For more information, see [wiki](https://github.com/RMTT/flyawesome/wiki/Wallpap
 - [ ] sound volume control
 - [ ] brightness control
 - [ ] notification beautify
+
+## Other Apps for you making a great experience on Linux
++ Flameshot : A very good screenshot software.
++ Master PDF Editor : PDF Viewer and Editor, also can annotate pdf and so on.
++ XMind : Making mindmaps on Linux, when you see papers or studying :)
++ Thunderbird : Email and RSS client
++ Dolphin : File Manager
++ Alacritty: A good terminal
++ Qt5ct and Kvantum Manager : Manage qt5 themes
++ lxappearance : Manage gtk themes
+> If you are using Arch Linux, you can find all on AUR or Official repo :)
 ### Current preview
 ![preview](https://i.imgur.com/TAvg49h.png)
 
