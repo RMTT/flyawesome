@@ -49,7 +49,7 @@ The configuration for wallpaper, you can find it on the end of `config.lua`,is
  ```
 + mode: "auto" or "manual", if "auto", it will use GeoClue2 service to get geoinfo, if "manual", you need fill the 
 `latitude` and `longitude` filed.
-+ timezone: the hours different to UTC, for example, if you are in `UTF-7`,just using -7 to this filed.
++ timezone: the hours different to UTC, for example, if you are in `UTC-7`,just using -7 to this filed.
 
 For more information, see [wiki](https://github.com/RMTT/flyawesome/wiki/Wallpaper-themes)
 ## Features
