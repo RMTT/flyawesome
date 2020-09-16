@@ -9,7 +9,7 @@ local tasklist = {}
 local tasklist_buttons = awful.util.table.join(awful.button({},
     1,
     function(c)
-        if c == _G.client.focus then
+        if c.active then
             c.minimized = true
         else
             -- Without this, the following
@@ -20,7 +20,7 @@ local tasklist_buttons = awful.util.table.join(awful.button({},
             end
             -- This will also un-minimize
             -- the client, if needed
-            _G.client.focus = c
+            c:activate()
             c:raise()
         end
     end),
