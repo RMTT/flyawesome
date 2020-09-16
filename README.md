@@ -1,5 +1,5 @@
 ## Flyawesome
-Just one new themes for awesomewm inspired adi1090x's polybar themes and manilarome's the-glorious-files.
+Just one them for awesomewm inspired adi1090x's polybar themes and manilarome's the-glorious-files.
 
 ## Install
 ### Required dependencies
