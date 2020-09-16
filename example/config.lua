@@ -403,9 +403,6 @@ client_ruled.append_rule {
         floating = true,
         above = true,
         skip_decoration = true,
-        shape = function(cr, width, height)
-            gears.shape.rounded_rect(cr, width, height, beautiful.client_radius)
-        end,
         placement = awful.placement.centered
     }
 }
@@ -421,9 +418,6 @@ client_ruled.append_rule {
         floating = true,
         above = true,
         skip_decoration = true,
-        shape = function(cr, width, height)
-            gears.shape.rounded_rect(cr, width, height, beautiful.client_radius)
-        end,
         placement = awful.placement.centered
     }
 }
@@ -455,9 +449,6 @@ client_ruled.append_rule {
         above = true,
         hide_titlebars = true,
         skip_decoration = true,
-        shape = function(cr, width, height)
-            gears.shape.rounded_rect(cr, width, height, beautiful.client_radius)
-        end,
         placement = awful.placement.centered
     }
 }
