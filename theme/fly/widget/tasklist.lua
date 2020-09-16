@@ -53,7 +53,7 @@ function tasklist:init(config)
                 spacing_widget = {
                     {
                         forced_width = 10,
-                        forced_height = config.height * 0.7,
+                        forced_height = config.height,
                         thickness = 1,
                         color = '#000000',
                         widget = wibox.widget.separator
@@ -68,7 +68,7 @@ function tasklist:init(config)
             widget_template = {
                 {
                     wibox.widget.base.make_widget(),
-                    forced_height = config.height / 10,
+                    forced_height = config.top_seperator_height,
                     id = 'background_role',
                     widget = wibox.container.background,
                 },
@@ -76,6 +76,9 @@ function tasklist:init(config)
                     {
                         {
                             id = 'icon_role',
+                            resize = true,
+                            forced_width = config.width,
+                            forced_height = config.height,
                             widget = wibox.widget.imagebox
                         },
                         widget = wibox.container.margin
