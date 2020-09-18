@@ -18,5 +18,8 @@ return {
     },
     wallpaper = {
         update_wallpaper = "wallpaper::update"
+    },
+    taglist = {
+        update_icon = "taglist::update_icon"
     }
 }

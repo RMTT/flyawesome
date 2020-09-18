@@ -2,6 +2,7 @@ local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
+local sig = require("theme.fly.signal")
 
 local taglist = {}
 
@@ -63,7 +64,7 @@ function taglist:init(config)
 
                 t:connect_signal("property::selected", update_icon)
 
-                t:connect_signal("taglist::update_icon", update_icon)
+                t:connect_signal(sig.taglist.update_icon, update_icon)
             end,
             widget = wibox.container.margin
         },
