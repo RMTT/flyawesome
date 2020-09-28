@@ -217,7 +217,12 @@ awful.keyboard.append_global_keybindings({
         function()
             awesome.emit_signal("dropdown::toggle")
         end,
-        { description = "toggle dropdown terminal", group = 'launcher' })
+        { description = "toggle dropdown terminal", group = 'launcher' }),
+    awful.key({ modkey, "Shift" }, "f",
+        function()
+            awful.spawn("flameshot gui")
+        end,
+        { description = "screen capture", group = 'launcher' }),
 })
 --]]
 
