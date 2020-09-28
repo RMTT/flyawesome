@@ -52,6 +52,11 @@ local function parse_device(path, display)
             model = data["Model"]
         })
     end
+
+    bus:signal_subscribe("org.freedesktop.UPower", "org.freedesktop.DBus.Properties", "PropertiesChanged",
+        nil, nil, Gio.DBusSignalFlags.NONE, function(conn, sender, object_path, interface_name, signal_name, user_data)
+            print(object_path)
+        end)
 end
 
 local function get_devices()
