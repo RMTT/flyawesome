@@ -17,6 +17,7 @@ local systray = require("theme.fly.widget.systray")
 local layoutbox = require("theme.fly.widget.layoutbox")
 local hotkeys_popup = require("theme.fly.widget.hotkeys_popup")
 local networking = require("theme.fly.widget.networking")
+local battery = require("theme.fly.widget.battery")
 
 -- import configurations
 local icons = require("theme.assets.icons")
@@ -45,6 +46,7 @@ function topbar:init(config)
     layoutbox:init({ height = self.height })
     hotkeys_popup:init({})
     networking:init({ width = self.height * 0.7, height = self.height * 0.7 })
+    battery:init({ width = self.height * 0.5 * (57 / 32), height = self.height * 0.5 })
 
     local topbar_bg_clickable = "#cdd1d3cc"
     common.clickable(startup.widget, beautiful.startup_bg, beautiful.startup_bg .. "cc")
@@ -65,6 +67,10 @@ function topbar:init(config)
                     {
                         wibox.widget {
                             systray.widget,
+                            widget = wibox.container.place
+                        },
+                        wibox.widget {
+                            battery.widget,
                             widget = wibox.container.place
                         },
                         wibox.widget {

@@ -21,5 +21,8 @@ return {
     },
     taglist = {
         update_icon = "taglist::update_icon"
+    },
+    battery_manager = {
+        update_device = "battery::update__device"
     }
 }
