@@ -56,8 +56,9 @@ function battery:init(config)
     end)
 
     awesome.connect_signal(sig.battery_manager.update_device, function(data)
-        print(data.path, data.percentage, data.state, data.type)
+        local show_percentage = false
         if data.type == constants.BATTERY_DEVICE_DISPLAY then
+            print("state: ", data.state)
             if data.state then
                 if data.state == constants.BATTERY_DEVICE_STATE_UNKNOWN then
                     battery.widget:set_image(icons.fly.battery_unknown)
@@ -67,10 +68,12 @@ function battery:init(config)
                     battery.widget:set_image(icons.fly.battery_empty)
                 elseif data.state == constants.BATTERY_DEVICE_STATE_FULL_CHARGED then
                     battery.widget:set_image(icons.fly.battery_full)
+                else
+                    show_percentage = true
                 end
             end
 
-            if data.percentage then
+            if show_percentage and data.percentage then
                 local percentage = data.percentage
                 if percentage > 0 and percentage < 25 then
                     battery.widget:set_image(icons.fly.battery_step_one)
