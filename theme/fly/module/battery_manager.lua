@@ -7,6 +7,7 @@ local GLib = lgi.GLib
 local constants = require("utils.constants")
 
 local battery_manager = {}
+local devices_type = {}
 local bus
 
 local function get_display_device()
@@ -41,22 +42,18 @@ local function parse_device(path, display)
     if display then
         type = constants.BATTERY_DEVICE_DISPLAY
     end
+    devices_type[path] = data["Type"]
 
-    if data["Type"] ~= constants.BATTERY_DEVICE_TYPE_LINE_POWER then
+    if devices_type[path] ~= constants.BATTERY_DEVICE_TYPE_LINE_POWER then
         awesome.emit_signal(sig.battery_manager.update_device, {
             type = type,
             path = path,
-            device_type = data["Type"],
+            device_type = devices_type[path],
             state = data["State"],
             percentage = data["Percentage"],
             model = data["Model"]
         })
     end
-
-    bus:signal_subscribe("org.freedesktop.UPower", "org.freedesktop.DBus.Properties", "PropertiesChanged",
-        nil, nil, Gio.DBusSignalFlags.NONE, function(conn, sender, object_path, interface_name, signal_name, user_data)
-            print(object_path)
-        end)
 end
 
 local function get_devices()
@@ -79,10 +76,12 @@ local function get_devices()
 end
 
 local function device_added(path)
-    print("device: ", path)
+    parse_device(path, false)
 end
 
-local function device_removed(path) end
+local function device_removed(path)
+    awesome.emit_signal(sig.battery_manager.remove_device, path)
+end
 
 function battery_manager:init(config)
     Gio.Async.call(function()
@@ -98,6 +97,28 @@ function battery_manager:init(config)
         for i = 1, #devices do
             parse_device(devices[i])
         end
+
+        bus:signal_subscribe("org.freedesktop.UPower", "org.freedesktop.DBus.Properties", "PropertiesChanged",
+            nil, nil, Gio.DBusSignalFlags.NONE, function(conn, sender, path, interface_name, signal_name, user_data)
+                local data = user_data.value[2]
+                if user_data.value[1] == "org.freedesktop.UPower.Device" then
+                    local type = constants.BATTERY_DEVICE_OTHER
+                    if path == display_device then
+                        type = constants.BATTERY_DEVICE_DISPLAY
+                    end
+
+                    if devices_type[path] ~= constants.BATTERY_DEVICE_TYPE_LINE_POWER then
+                        awesome.emit_signal(sig.battery_manager.update_device, {
+                            type = type,
+                            path = path,
+                            device_type = devices_type[path],
+                            state = data["State"],
+                            percentage = data["Percentage"],
+                            model = data["Model"]
+                        })
+                    end
+                end
+            end)
 
         bus:signal_subscribe("org.freedesktop.UPower", "org.freedesktop.UPower", "DeviceAdded",
             nil, nil, Gio.DBusSignalFlags.NONE, device_added)
