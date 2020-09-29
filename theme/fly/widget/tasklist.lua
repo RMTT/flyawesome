@@ -62,7 +62,7 @@ function tasklist:init(config)
                     halign = 'center',
                     widget = wibox.container.place,
                 },
-                spacing = 2,
+                spacing = 4,
                 layout = wibox.layout.fixed.horizontal
             },
             widget_template = {
