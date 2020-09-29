@@ -75,12 +75,12 @@ local function get_devices()
     return res
 end
 
-local function device_added(path)
-    parse_device(path, false)
+local function device_added(conn, sender, path, interface_name, signal_name, user_data)
+    parse_device(user_data.value[1], false)
 end
 
-local function device_removed(path)
-    awesome.emit_signal(sig.battery_manager.remove_device, path)
+local function device_removed(conn, sender, path, interface_name, signal_name, user_data)
+    awesome.emit_signal(sig.battery_manager.remove_device, user_data.value[1])
 end
 
 function battery_manager:init(config)
