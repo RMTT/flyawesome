@@ -41,12 +41,35 @@ function battery:init(config)
         ontop = true
     }
 
-    self.widget:connect_signal("button::press", function(geo, lx, ly, button, mods, w)
-        if not have_moved then
-            battery.panel:move_next_to(w)
-            have_moved = true
-        else
+    self.backdrop = wibox {
+        x = 0,
+        y = 0,
+        bg = "#00000000",
+        ontop = true,
+        type = "dock",
+        screen = config.screen,
+        width = config.screen.geometry.width,
+        height = config.screen.geometry.height,
+        visible = false,
+    }
+
+    self.backdrop:buttons({
+        awful.button({}, 1, nil, function()
+            battery.backdrop.visible = not battery.backdrop.visible
             battery.panel.visible = not battery.panel.visible
+        end)
+    })
+
+    self.widget:connect_signal("button::press", function(geo, lx, ly, button, mods, w)
+        if button == 1 then
+            battery.backdrop.visible = not battery.backdrop.visible
+
+            if not have_moved then
+                battery.panel:move_next_to(w)
+                have_moved = true
+            else
+                battery.panel.visible = not battery.panel.visible
+            end
         end
     end)
 

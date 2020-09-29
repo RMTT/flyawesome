@@ -46,7 +46,7 @@ function topbar:init(config)
     layoutbox:init({ height = self.height })
     hotkeys_popup:init({})
     networking:init({ width = self.height * 0.7, height = self.height * 0.7 })
-    battery:init({ width = self.height * 0.5 * (57 / 32), height = self.height * 0.5 })
+    battery:init({ width = self.height * 0.5 * (57 / 32), height = self.height * 0.5, screen = config.screen })
 
     local topbar_bg_clickable = "#cdd1d3cc"
     common.clickable(startup.widget, beautiful.startup_bg, beautiful.startup_bg .. "cc")
