@@ -23,6 +23,7 @@ return {
         update_icon = "taglist::update_icon"
     },
     battery_manager = {
-        update_device = "battery::update__device"
+        update_device = "battery::update_device",
+        remove_device = "battery::remove_device"
     }
 }
