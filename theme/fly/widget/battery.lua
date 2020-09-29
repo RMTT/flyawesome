@@ -12,6 +12,8 @@ local have_moved = false
 local items = {}
 local progressbars = {}
 
+local show_percentage = false
+
 function battery:init(config)
     self.widget = wibox.widget {
         image = icons.fly.battery_unknown,
@@ -56,10 +58,9 @@ function battery:init(config)
     end)
 
     awesome.connect_signal(sig.battery_manager.update_device, function(data)
-        local show_percentage = false
         if data.type == constants.BATTERY_DEVICE_DISPLAY then
-            print("state: ", data.state)
             if data.state then
+                show_percentage = false
                 if data.state == constants.BATTERY_DEVICE_STATE_UNKNOWN then
                     battery.widget:set_image(icons.fly.battery_unknown)
                 elseif data.state == constants.BATTERY_DEVICE_STATE_CHARGING then
