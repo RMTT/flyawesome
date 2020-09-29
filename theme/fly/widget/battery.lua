@@ -48,17 +48,29 @@ function battery:init(config)
         end
     end)
 
+    awesome.connect_signal(sig.battery_manager.remove_device, function(path)
+        if items[path] then
+            battery.panel_content:remove_widgets(items[path])
+            items[path] = nil
+        end
+    end)
+
     awesome.connect_signal(sig.battery_manager.update_device, function(data)
+        print(data.path, data.percentage, data.state, data.type)
         if data.type == constants.BATTERY_DEVICE_DISPLAY then
-            if data.state == constants.BATTERY_DEVICE_STATE_UNKNOWN then
-                battery.widget:set_image(icons.fly.battery_unknown)
-            elseif data.state == constants.BATTERY_DEVICE_STATE_CHARGING then
-                battery.widet:set_image(icons.fly.battery_charging)
-            elseif data.state == constants.BATTERY_DEVICE_STATE_EMPTY then
-                battery.widget:set_image(icons.fly.battery_empty)
-            elseif data.state == constants.BATTERY_DEVICE_STATE_FULL_CHARGED then
-                battery.widget:set_image(icons.fly.battery_full)
-            else
+            if data.state then
+                if data.state == constants.BATTERY_DEVICE_STATE_UNKNOWN then
+                    battery.widget:set_image(icons.fly.battery_unknown)
+                elseif data.state == constants.BATTERY_DEVICE_STATE_CHARGING then
+                    battery.widget:set_image(icons.fly.battery_charging)
+                elseif data.state == constants.BATTERY_DEVICE_STATE_EMPTY then
+                    battery.widget:set_image(icons.fly.battery_empty)
+                elseif data.state == constants.BATTERY_DEVICE_STATE_FULL_CHARGED then
+                    battery.widget:set_image(icons.fly.battery_full)
+                end
+            end
+
+            if data.percentage then
                 local percentage = data.percentage
                 if percentage > 0 and percentage < 25 then
                     battery.widget:set_image(icons.fly.battery_step_one)
@@ -72,8 +84,11 @@ function battery:init(config)
             end
         else
             if items[data.path] then
-                if progressbars[data.path] then
-                    progressbars[data.path].value = data.percentage
+                -- if percentage changed
+                if data.percentage then
+                    if progressbars[data.path] then
+                        progressbars[data.path].value = data.percentage
+                    end
                 end
             else
                 local markup = data.model
