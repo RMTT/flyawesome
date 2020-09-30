@@ -26,13 +26,16 @@ return {
         -- icons for battery widget
         battery_charging = base_dir .. "battery_charging.svg",
         battery_empty = base_dir .. "battery_empty.svg",
-        battery_error = base_dir .. "battery_error.svg",
-        battery_ok = base_dir .. "battery_ok.svg",
         battery_full = base_dir .. "battery_full.svg",
-        battery_step_four = base_dir .. "battery_step_four.svg",
         battery_step_one = base_dir .. "battery_step_one.svg",
-        battery_step_three = base_dir .. "battery_step_three.svg",
         battery_step_two = base_dir .. "battery_step_two.svg",
-        battery_unknown = base_dir .. "battery_unknown.svg"
+        battery_step_three = base_dir .. "battery_step_three.svg",
+        battery_step_four = base_dir .. "battery_step_four.svg",
+        battery_step_five = base_dir .. "battery_step_five.svg",
+        battery_step_six = base_dir .. "battery_step_six.svg",
+        battery_step_seven = base_dir .. "battery_step_seven.svg",
+        battery_step_eight = base_dir .. "battery_step_eight.svg",
+        battery_step_nine = base_dir .. "battery_step_nine.svg",
+        battery_warning = base_dir .. "battery_warning.svg"
     }
 }

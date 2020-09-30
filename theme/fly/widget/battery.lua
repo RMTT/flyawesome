@@ -85,7 +85,7 @@ function battery:init(config)
             if data.state then
                 show_percentage = false
                 if data.state == constants.BATTERY_DEVICE_STATE_UNKNOWN then
-                    battery.widget:set_image(icons.fly.battery_unknown)
+                    battery.widget:set_image(icons.fly.battery_warning)
                 elseif data.state == constants.BATTERY_DEVICE_STATE_CHARGING then
                     battery.widget:set_image(icons.fly.battery_charging)
                 elseif data.state == constants.BATTERY_DEVICE_STATE_EMPTY then
@@ -99,14 +99,26 @@ function battery:init(config)
 
             if show_percentage and data.percentage then
                 local percentage = data.percentage
-                if percentage > 0 and percentage < 25 then
+                if percentage > 0 and percentage < 10 then
                     battery.widget:set_image(icons.fly.battery_step_one)
-                elseif percentage >= 25 and percentage < 50 then
+                elseif percentage >= 10 and percentage < 20 then
                     battery.widget:set_image(icons.fly.battery_step_two)
-                elseif percentage >= 50 and percentage < 75 then
+                elseif percentage >= 20 and percentage < 30 then
                     battery.widget:set_image(icons.fly.battery_step_three)
-                elseif percentage >= 75 and percentage < 100 then
+                elseif percentage >= 30 and percentage < 40 then
                     battery.widget:set_image(icons.fly.battery_step_four)
+                elseif percentage >= 40 and percentage < 50 then
+                    battery.widget:set_image(icons.fly.battery_step_five)
+                elseif percentage >= 50 and percentage < 60 then
+                    battery.widget:set_image(icons.fly.battery_step_six)
+                elseif percentage >= 60 and percentage < 70 then
+                    battery.widget:set_image(icons.fly.battery_step_seven)
+                elseif percentage >= 70 and percentage < 80 then
+                    battery.widget:set_image(icons.fly.battery_step_eight)
+                elseif percentage >= 80 and percentage < 90 then
+                    battery.widget:set_image(icons.fly.battery_step_nine)
+                elseif percentage >= 90 then
+                    battery.widget:set_image(icons.fly.battery_full)
                 end
             end
         else
