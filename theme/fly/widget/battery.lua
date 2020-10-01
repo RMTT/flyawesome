@@ -4,19 +4,24 @@ local awful = require("awful")
 local sig = require("theme.fly.signal")
 local beautiful = require("beautiful")
 local constants = require("utils.constants")
+local gears = require("gears")
 
 local battery = {}
 
-local have_moved = false
+local have_moved = 0
 
 local items = {}
 local progressbars = {}
+local icon_color = "#000000"
+local icon_color_clicked = "#2177b8"
+local clicked = false
+local state, percentage
 
 local show_percentage = false
 
 function battery:init(config)
     self.widget = wibox.widget {
-        image = icons.fly.battery_unknown,
+        image = icons.fly.battery_warning,
         resize = true,
         forced_height = config.height,
         forced_width = config.width,
@@ -55,21 +60,18 @@ function battery:init(config)
 
     self.backdrop:buttons({
         awful.button({}, 1, nil, function()
-            battery.backdrop.visible = not battery.backdrop.visible
-            battery.panel.visible = not battery.panel.visible
+            battery:toggle()
         end)
     })
 
     self.widget:connect_signal("button::press", function(geo, lx, ly, button, mods, w)
         if button == 1 then
-            battery.backdrop.visible = not battery.backdrop.visible
-
-            if not have_moved then
+            if have_moved == 0 then
                 battery.panel:move_next_to(w)
-                have_moved = true
-            else
-                battery.panel.visible = not battery.panel.visible
+                have_moved = 1
             end
+
+            battery:toggle()
         end
     end)
 
@@ -82,45 +84,9 @@ function battery:init(config)
 
     awesome.connect_signal(sig.battery_manager.update_device, function(data)
         if data.type == constants.BATTERY_DEVICE_DISPLAY then
-            if data.state then
-                show_percentage = false
-                if data.state == constants.BATTERY_DEVICE_STATE_UNKNOWN then
-                    battery.widget:set_image(icons.fly.battery_warning)
-                elseif data.state == constants.BATTERY_DEVICE_STATE_CHARGING then
-                    battery.widget:set_image(icons.fly.battery_charging)
-                elseif data.state == constants.BATTERY_DEVICE_STATE_EMPTY then
-                    battery.widget:set_image(icons.fly.battery_empty)
-                elseif data.state == constants.BATTERY_DEVICE_STATE_FULL_CHARGED then
-                    battery.widget:set_image(icons.fly.battery_full)
-                else
-                    show_percentage = true
-                end
-            end
-
-            if show_percentage and data.percentage then
-                local percentage = data.percentage
-                if percentage > 0 and percentage < 10 then
-                    battery.widget:set_image(icons.fly.battery_step_one)
-                elseif percentage >= 10 and percentage < 20 then
-                    battery.widget:set_image(icons.fly.battery_step_two)
-                elseif percentage >= 20 and percentage < 30 then
-                    battery.widget:set_image(icons.fly.battery_step_three)
-                elseif percentage >= 30 and percentage < 40 then
-                    battery.widget:set_image(icons.fly.battery_step_four)
-                elseif percentage >= 40 and percentage < 50 then
-                    battery.widget:set_image(icons.fly.battery_step_five)
-                elseif percentage >= 50 and percentage < 60 then
-                    battery.widget:set_image(icons.fly.battery_step_six)
-                elseif percentage >= 60 and percentage < 70 then
-                    battery.widget:set_image(icons.fly.battery_step_seven)
-                elseif percentage >= 70 and percentage < 80 then
-                    battery.widget:set_image(icons.fly.battery_step_eight)
-                elseif percentage >= 80 and percentage < 90 then
-                    battery.widget:set_image(icons.fly.battery_step_nine)
-                elseif percentage >= 90 then
-                    battery.widget:set_image(icons.fly.battery_full)
-                end
-            end
+            state = data.state
+            percentage = data.percentage
+            battery:set_icon()
         else
             if items[data.path] then
                 -- if percentage changed
@@ -164,6 +130,66 @@ function battery:init(config)
             end
         end
     end)
+end
+
+function battery:set_icon()
+    local color = icon_color
+
+    if clicked then
+        color = icon_color_clicked
+    end
+
+    if state then
+        show_percentage = false
+        if state == constants.BATTERY_DEVICE_STATE_UNKNOWN then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_warning, color))
+        elseif state == constants.BATTERY_DEVICE_STATE_CHARGING then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_charging, color))
+        elseif state == constants.BATTERY_DEVICE_STATE_EMPTY then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_empty, color))
+        elseif state == constants.BATTERY_DEVICE_STATE_FULL_CHARGED then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_full, color))
+        else
+            show_percentage = true
+        end
+    end
+
+    if show_percentage and percentage then
+        if percentage > 0 and percentage < 10 then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_step_one, color))
+        elseif percentage >= 10 and percentage < 20 then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_step_two, color))
+        elseif percentage >= 20 and percentage < 30 then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_step_three, color))
+        elseif percentage >= 30 and percentage < 40 then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_step_four, color))
+        elseif percentage >= 40 and percentage < 50 then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_step_five, color))
+        elseif percentage >= 50 and percentage < 60 then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_step_six, color))
+        elseif percentage >= 60 and percentage < 70 then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_step_seven, color))
+        elseif percentage >= 70 and percentage < 80 then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_step_eight, color))
+        elseif percentage >= 80 and percentage < 90 then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_step_nine, color))
+        elseif percentage >= 90 then
+            self.widget:set_image(gears.color.recolor_image(icons.fly.battery_full, color))
+        end
+    end
+end
+
+function battery:toggle()
+    clicked = not clicked
+    self.backdrop.visible = not self.backdrop.visible
+
+    if have_moved == 1 then
+        have_moved = 2
+    elseif have_moved == 2 then
+        self.panel.visible = not self.panel.visible
+    end
+
+    self:set_icon()
 end
 
 return battery
