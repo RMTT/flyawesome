@@ -58,7 +58,7 @@ For more information, see [wiki](https://github.com/RMTT/flyawesome/wiki/Wallpap
 
 ## Todo
 - [ ] lockscreen module
-- [ ] power manager module and widget
+- [x] power manager module and widget
 - [ ] sound volume control
 - [ ] brightness control
 - [ ] notification beautify
